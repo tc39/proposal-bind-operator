@@ -1,12 +1,22 @@
 ## ECMAScript: Function Bind Syntax ##
 
-## Motivation and Overview ##
+### Motivation and Overview ###
 
 TODO
 
-## Examples ##
+### Examples ###
 
-TODO
+Using method extraction to print the eventual value of a promise to the console:
+
+```js
+Promise.resolve(123).then(::console.log);
+```
+
+Using method extraction to call an object method when a DOM event occurs:
+
+```js
+$(".some-link").on("click", ::view.reset);
+```
 
 ### Syntax ###
 
