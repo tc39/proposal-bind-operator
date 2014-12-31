@@ -1,4 +1,4 @@
-## ECMAScript: Function Bind Syntax ##
+## ECMAScript Function Bind Syntax ##
 
 ### Motivation and Overview ###
 
