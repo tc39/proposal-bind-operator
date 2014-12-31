@@ -10,6 +10,7 @@ TODO
 
 ### Syntax ###
 
+
     MemberExpression[Yield] :
         [Lexical goal InputElementRegExp] PrimaryExpression[?Yield]
         MemberExpression[?Yield] [ Expression[In, ?Yield] ]
@@ -39,10 +40,13 @@ TODO
         CallExpression[?Yield] TemplateLiteral[?Yield]
         CallExpression[?Yield] :: BindTarget[?Yield]
 
+
 ### Runtime Semantics ###
+
 
     MemberExpression :
         MemberExpression :: BindTarget
+
 
 - Let `baseReference` be the result of evaluating `MemberExpression`.
 - Let `baseValue` be GetValue(`baseReference`).
@@ -58,21 +62,23 @@ TODO
 - If `targetHasLength` is true, then
     - Let `targetLen` be Get(`target`, "length").
     - ReturnIfAbrupt(`targetLen`).
-    - If Type(`targetLen`) is not Number, then let L be 0.
-    - Else, let `targetLen` be ToInteger(targetLen).
-- Else let `targetLen` be 0.
+    - If Type(`targetLen`) is not Number, then let `L` be 0.
+    - Else, let `L` be ToInteger(`targetLen`).
+- Else let `L` be 0.
 - Let `status` be DefinePropertyOrThrow(`F`, "length", PropertyDescriptor {[[Value]]: `L`,
   [[Writable]]: false, [[Enumerable]]: false, [[Configurable]]: true}).
 - ReturnIfAbrupt(`status`).
-- Let `targetName` be Get(Target, "name").
+- Let `targetName` be Get(`target`, "name").
 - ReturnIfAbrupt(`targetName`).
 - If Type(`targetName`) is not String, then let `targetName` be the empty string.
 - Let `status` be SetFunctionName(`F`, `targetName`, "bound").
 - ReturnIfAbrupt(`status`).
 - Return `F`.
 
+
     MemberExpresion :
         :: BindTarget
+
 
 - Let `targetReference` be the result of evaluating `BindTarget`.
 - Let `baseValue` be GetBase(`targetReference`).
@@ -87,13 +93,13 @@ TODO
 - If `targetHasLength` is true, then
     - Let `targetLen` be Get(`target`, "length").
     - ReturnIfAbrupt(`targetLen`).
-    - If Type(`targetLen`) is not Number, then let L be 0.
-    - Else, let `targetLen` be ToInteger(targetLen).
-- Else let `targetLen` be 0.
+    - If Type(`targetLen`) is not Number, then let `L` be 0.
+    - Else, let `L` be ToInteger(`targetLen`).
+- Else let `L` be 0.
 - Let `status` be DefinePropertyOrThrow(`F`, "length", PropertyDescriptor {[[Value]]: `L`,
   [[Writable]]: false, [[Enumerable]]: false, [[Configurable]]: true}).
 - ReturnIfAbrupt(`status`).
-- Let `targetName` be Get(Target, "name").
+- Let `targetName` be Get(`target`, "name").
 - ReturnIfAbrupt(`targetName`).
 - If Type(`targetName`) is not String, then let `targetName` be the empty string.
 - Let `status` be SetFunctionName(`F`, `targetName`, "bound").
