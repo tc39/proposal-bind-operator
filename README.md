@@ -43,10 +43,8 @@ TODO
 
 ### Runtime Semantics ###
 
-
     MemberExpression :
         MemberExpression :: BindTarget
-
 
 - Let `baseReference` be the result of evaluating `MemberExpression`.
 - Let `baseValue` be GetValue(`baseReference`).
@@ -76,9 +74,10 @@ TODO
 - Return `F`.
 
 
+### Runtime Semantics:  Method Extraction ###
+
     MemberExpresion :
         :: BindTarget
-
 
 - Let `targetReference` be the result of evaluating `BindTarget`.
 - Let `baseValue` be GetBase(`targetReference`).
