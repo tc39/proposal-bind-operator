@@ -1,5 +1,7 @@
 ## ECMAScript Function Bind Syntax ##
 
+This proposal introduces a new operator `::` which performs function binding.
+
 ### Examples ###
 
 Using an iterator library implemented as a module of "virtual methods":
