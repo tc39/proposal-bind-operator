@@ -111,7 +111,7 @@ adapter patterns in use today.
 - Let `baseReference` be the result of evaluating `LeftHandSideExpression`.
 - Let `baseValue` be GetValue(`baseReference`).
 - ReturnIfAbrupt(`baseValue`).
-- Let `targetReference` be the result of evaluating `NewExpression`
+- Let `targetReference` be the result of evaluating `NewExpression`.
 - Let `target` be GetValue(`targetReference`).
 - If IsCallable(`target`) is false, throw a TypeError exception.
 - Let `F` be BoundFunctionCreate(`target`, `baseValue`, ()).
