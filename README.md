@@ -63,6 +63,17 @@ Promise.resolve(123).then(console.log.bind(console));
 This proposal introduces a new operator `::` which can be used as syntactic sugar
 for these use cases.
 
+In its binary form, the `::` operator creates a bound function such that the left
+side of the operator is bound as the `this` variable to the target function on
+the right hand side.
+
+In its unary prefix form, the `::` operator creates a bound function such that
+the base of the supplied reference is bound as the `this` variable to the target
+function.
+
+If the bound function is immediately called, then bound function itself is not
+observable and can be optimized to a function call.
+
 
 ### Syntax ###
 
