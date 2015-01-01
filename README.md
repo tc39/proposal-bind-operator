@@ -21,26 +21,6 @@ $(".some-link").on("click", ::view.reset);
 ### Syntax ###
 
 
-    MemberExpression[Yield] :
-        [Lexical goal InputElementRegExp] PrimaryExpression[?Yield]
-        MemberExpression[?Yield] [ Expression[In, ?Yield] ]
-        MemberExpression[?Yield] . IdentifierName
-        MemberExpression[?Yield] TemplateLiteral[?Yield]
-        MemberExpression[?Yield] :: BindTarget[?Yield]
-        :: BindTarget[?Yield]
-        SuperProperty[?Yield]
-        NewSuper Arguments[?Yield]
-        new MemberExpression[?Yield] Arguments[?Yield]
-
-    BindTarget[Yield] :
-        [Lexical goal InputElementRegExp] PrimaryExpression[?Yield]
-        BindTarget[?Yield] [ Expression[In, ?Yield] ]
-        BindTarget[?Yield] . IdentifierName
-        BindTarget[?Yield] TemplateLiteral[?Yield]
-        SuperProperty[?Yield]
-        NewSuper Arguments[?Yield]
-        new BindTarget[?Yield] Arguments[?Yield]
-
     CallExpression[Yield] :
         MemberExpression[?Yield] Arguments[?Yield]
         super Arguments[?Yield]
@@ -48,20 +28,21 @@ $(".some-link").on("click", ::view.reset);
         CallExpression[?Yield] [ Expression[In, ?Yield] ]
         CallExpression[?Yield] . IdentifierName
         CallExpression[?Yield] TemplateLiteral[?Yield]
-        CallExpression[?Yield] :: BindTarget[?Yield]
+        CallExpression[?Yield] :: MemberExpression[?Yield]
+        :: MemberExpression[?Yield]
 
 
 ### Runtime Semantics ###
 
-    MemberExpression :
-        MemberExpression :: BindTarget
+    CallExpression :
+        CallExpression :: MemberExpression
 
-- Let `baseReference` be the result of evaluating `MemberExpression`.
+- Let `baseReference` be the result of evaluating `CallExpression`.
 - Let `baseValue` be GetValue(`baseReference`).
 - ReturnIfAbrupt(`baseValue`).
 - Let `bv` be RequireObjectCoercible(`baseValue`).
 - ReturnIfAbrupt(`bv`).
-- Let `targetReference` be the result of evaluating `BindTarget`
+- Let `targetReference` be the result of evaluating `MemberExpression`
 - Let `target` be GetValue(`targetReference`).
 - If IsCallable(`target`) is false, throw a TypeError exception.
 - Let `F` be BoundFunctionCreate(`target`, `baseValue`, ()).
@@ -86,10 +67,10 @@ $(".some-link").on("click", ::view.reset);
 
 ### Runtime Semantics:  Method Extraction ###
 
-    MemberExpresion :
-        :: BindTarget
+    CallExpresion :
+        :: MemberExpression
 
-- Let `targetReference` be the result of evaluating `BindTarget`.
+- Let `targetReference` be the result of evaluating `MemberExpression`.
 - Let `baseValue` be GetBase(`targetReference`).
 - ReturnIfAbrupt(`baseValue`).
 - Let `bv` be RequireObjectCoercible(`baseValue`).
