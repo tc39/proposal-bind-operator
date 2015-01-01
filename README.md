@@ -84,6 +84,15 @@ adapter patterns in use today.
 ### Syntax ###
 
 
+    LeftHandSideExpression[Yield] :
+        NewExpression[?Yield]
+        CallExpression[?Yield]
+        BindExpression[?Yield]
+
+    BindExpression[Yield] :
+        LeftHandSideExpression[?Yield] :: NewExpression[?Yield]
+        :: NewExpression[?Yield]
+
     CallExpression[Yield] :
         MemberExpression[?Yield] Arguments[?Yield]
         super Arguments[?Yield]
@@ -91,21 +100,20 @@ adapter patterns in use today.
         CallExpression[?Yield] [ Expression[In, ?Yield] ]
         CallExpression[?Yield] . IdentifierName
         CallExpression[?Yield] TemplateLiteral[?Yield]
-        CallExpression[?Yield] :: MemberExpression[?Yield]
-        :: MemberExpression[?Yield]
+        BindExpression[?Yield] Arguments[?Yield]
 
 
 ### Runtime Semantics ###
 
-    CallExpression :
-        CallExpression :: MemberExpression
+    BindExpression :
+        LeftHandSideExpression :: NewExpression
 
-- Let `baseReference` be the result of evaluating `CallExpression`.
+- Let `baseReference` be the result of evaluating `LeftHandSideExpression`.
 - Let `baseValue` be GetValue(`baseReference`).
 - ReturnIfAbrupt(`baseValue`).
 - Let `bv` be RequireObjectCoercible(`baseValue`).
 - ReturnIfAbrupt(`bv`).
-- Let `targetReference` be the result of evaluating `MemberExpression`
+- Let `targetReference` be the result of evaluating `NewExpression`
 - Let `target` be GetValue(`targetReference`).
 - If IsCallable(`target`) is false, throw a TypeError exception.
 - Let `F` be BoundFunctionCreate(`target`, `baseValue`, ()).
@@ -130,10 +138,10 @@ adapter patterns in use today.
 
 ----
 
-    CallExpresion :
-        :: MemberExpression
+    BindExpression :
+        :: NewExpression
 
-- Let `targetReference` be the result of evaluating `MemberExpression`.
+- Let `targetReference` be the result of evaluating `NewExpression`.
 - If Type(`targetReference`) is Reference, then
     - Let `baseValue` be GetBase(`targetReference`).
     - ReturnIfAbrupt(`baseValue`).
