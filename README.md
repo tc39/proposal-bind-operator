@@ -1,6 +1,7 @@
 ## ECMAScript Function Bind Syntax ##
 
-This proposal introduces a new operator `::` which performs function binding.
+This proposal introduces a new operator `::` which performs function binding and
+method extraction.
 
 ### Examples ###
 
@@ -40,7 +41,28 @@ $(".some-link").on("click", ::view.reset);
 
 ### Motivation and Overview ###
 
-TODO
+With the introduction of arrow functions in ECMAScript 6, the need for explicitly
+binding closures to the lexical `this` value has been dramatically reduced, resulting
+in a significant increase in language usability.  However, there are still two use cases
+where explicit `this` binding is both common and awkward.
+
+**Calling a known function with a supplied `this` argument**
+
+```js
+function getX() { return this.x }
+var obj = { x: 100 };
+getX.call(obj);
+```
+
+**Extracting a method from an object**
+
+```js
+Promise.resolve(123).then(console.log.bind(console));
+```
+
+This proposal introduces a new operator `::` which can be used as syntactic sugar
+for these use cases.
+
 
 ### Syntax ###
 
