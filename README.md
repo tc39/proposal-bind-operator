@@ -1,9 +1,5 @@
 ## ECMAScript Function Bind Syntax ##
 
-### Motivation and Overview ###
-
-TODO
-
 ### Examples ###
 
 Using an iterator library implemented as a module of "virtual methods":
@@ -23,7 +19,8 @@ Using a jquery-like library of virtual methods:
 // Create bindings for just the methods that we need
 let { find, html } = jake;
 
-// Find all the divs with class="myClass", then get all of the "p"s and replace their content.
+// Find all the divs with class="myClass", then get all of the "p"s and
+// replace their content.
 document.querySelectorAll("div.myClass")::find("p")::html("hahaha");
 ```
 
@@ -38,6 +35,10 @@ Using method extraction to call an object method when a DOM event occurs:
 ```js
 $(".some-link").on("click", ::view.reset);
 ```
+
+### Motivation and Overview ###
+
+TODO
 
 ### Syntax ###
 
