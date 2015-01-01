@@ -111,8 +111,6 @@ adapter patterns in use today.
 - Let `baseReference` be the result of evaluating `LeftHandSideExpression`.
 - Let `baseValue` be GetValue(`baseReference`).
 - ReturnIfAbrupt(`baseValue`).
-- Let `bv` be RequireObjectCoercible(`baseValue`).
-- ReturnIfAbrupt(`bv`).
 - Let `targetReference` be the result of evaluating `NewExpression`
 - Let `target` be GetValue(`targetReference`).
 - If IsCallable(`target`) is false, throw a TypeError exception.
@@ -142,11 +140,7 @@ adapter patterns in use today.
         :: NewExpression
 
 - Let `targetReference` be the result of evaluating `NewExpression`.
-- If Type(`targetReference`) is Reference, then
-    - Let `baseValue` be GetBase(`targetReference`).
-    - ReturnIfAbrupt(`baseValue`).
-    - Let `bv` be RequireObjectCoercible(`baseValue`).
-    - ReturnIfAbrupt(`bv`).
+- If Type(`targetReference`) is Reference, then let `baseValue` be GetBase(`targetReference`).
 - Else let `baseValue` be undefined.
 - Let `target` be GetValue(`targetReference`).
 - If IsCallable(`target`) is false, throw a TypeError exception.
