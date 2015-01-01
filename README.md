@@ -65,7 +65,7 @@ $(".some-link").on("click", ::view.reset);
 - Return `F`.
 
 
-### Runtime Semantics:  Method Extraction ###
+----
 
     CallExpresion :
         :: MemberExpression
