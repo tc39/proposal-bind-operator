@@ -128,10 +128,12 @@ observable and can be optimized to a function call.
         :: MemberExpression
 
 - Let `targetReference` be the result of evaluating `MemberExpression`.
-- Let `baseValue` be GetBase(`targetReference`).
-- ReturnIfAbrupt(`baseValue`).
-- Let `bv` be RequireObjectCoercible(`baseValue`).
-- ReturnIfAbrupt(`bv`).
+- If Type(`targetReference`) is Reference, then
+    - Let `baseValue` be GetBase(`targetReference`).
+    - ReturnIfAbrupt(`baseValue`).
+    - Let `bv` be RequireObjectCoercible(`baseValue`).
+    - ReturnIfAbrupt(`bv`).
+- Else let `baseValue` be undefined.
 - Let `target` be GetValue(`targetReference`).
 - If IsCallable(`target`) is false, throw a TypeError exception.
 - Let `F` be BoundFunctionCreate(`target`, `baseValue`, ()).
