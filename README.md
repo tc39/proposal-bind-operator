@@ -66,7 +66,7 @@ This proposal introduces a new operator `::` which can be used as syntactic suga
 for these use cases.
 
 In its binary form, the `::` operator creates a bound function such that the left
-side of the operator is bound as the `this` variable to the target function on
+hand side of the operator is bound as the `this` variable to the target function on
 the right hand side.
 
 In its unary prefix form, the `::` operator creates a bound function such that
