@@ -6,6 +6,27 @@ TODO
 
 ### Examples ###
 
+Using an iterator library implemented as a module of "virtual methods":
+
+```js
+import { map, takeWhile, forEach } from "iterlib";
+
+getPlayers()
+::map(x => x.character())
+::takeWhile(x => x.strength > 100)
+::forEach(x => console.log(x));
+```
+
+Using a jquery-like library of virtual methods:
+
+```js
+// Create bindings for just the methods that we need
+let { find, html } = jake;
+
+// Find all the divs with class="myClass", then get all of the "p"s and replace their content.
+document.querySelectorAll("div.myClass")::find("p")::html("hahaha");
+```
+
 Using method extraction to print the eventual value of a promise to the console:
 
 ```js
