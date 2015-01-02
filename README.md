@@ -81,6 +81,13 @@ By providing syntactic sugar for these use cases we will enable a new class of
 adapter patterns in use today.
 
 
+### Prototypes ###
+
+- Parser: [esparse](https://github.com/zenparsing/esparse)
+- Transpiler: [esdown](https://github.com/zenparsing/esparse)
+- Demo: [esdown REPL](http://esparse.org/esdown/repl/)
+
+
 ### Syntax ###
 
 
