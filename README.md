@@ -51,9 +51,9 @@ where explicit `this` binding or injection is both common and awkward.
 **Calling a known function with a supplied `this` argument:**
 
 ```js
-function getX() { return this.x }
+var hasOwnProp = Object.prototype.hasOwnProperty;
 var obj = { x: 100 };
-getX.call(obj);
+hasOwnProp.call(obj, "x");
 ```
 
 **Extracting a method from an object:**
