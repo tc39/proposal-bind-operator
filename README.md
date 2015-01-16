@@ -115,30 +115,30 @@ adapter patterns in use today.
     BindExpression :
         LeftHandSideExpression :: NewExpression
 
-- Let `baseReference` be the result of evaluating `LeftHandSideExpression`.
-- Let `baseValue` be GetValue(`baseReference`).
-- ReturnIfAbrupt(`baseValue`).
-- Let `targetReference` be the result of evaluating `NewExpression`.
-- Let `target` be GetValue(`targetReference`).
-- If IsCallable(`target`) is false, throw a TypeError exception.
-- Let `F` be BoundFunctionCreate(`target`, `baseValue`, ()).
-- Let `targetHasLength` be HasOwnProperty(`target`, "length").
-- ReturnIfAbrupt(`targetHasLength`).
-- If `targetHasLength` is true, then
-    - Let `targetLen` be Get(`target`, "length").
-    - ReturnIfAbrupt(`targetLen`).
-    - If Type(`targetLen`) is not Number, then let `L` be 0.
-    - Else, let `L` be ToInteger(`targetLen`).
-- Else let `L` be 0.
-- Let `status` be DefinePropertyOrThrow(`F`, "length", PropertyDescriptor {[[Value]]: `L`,
-  [[Writable]]: false, [[Enumerable]]: false, [[Configurable]]: true}).
-- ReturnIfAbrupt(`status`).
-- Let `targetName` be Get(`target`, "name").
-- ReturnIfAbrupt(`targetName`).
-- If Type(`targetName`) is not String, then let `targetName` be the empty string.
-- Let `status` be SetFunctionName(`F`, `targetName`, "bound").
-- ReturnIfAbrupt(`status`).
-- Return `F`.
+- Let _baseReference_ be the result of evaluating _LeftHandSideExpression_.
+- Let _baseValue_ be GetValue(_baseReference_).
+- ReturnIfAbrupt(_baseValue_).
+- Let _targetReference_ be the result of evaluating _NewExpression_.
+- Let _target_ be GetValue(_targetReference_).
+- If IsCallable(_target_) is **false**, throw a **TypeError** exception.
+- Let _F_ be BoundFunctionCreate(_target_, _baseValue_, ()).
+- Let _targetHasLength_ be HasOwnProperty(_target_, "length").
+- ReturnIfAbrupt(_targetHasLength_).
+- If _targetHasLength_ is **true**, then
+    - Let _targetLen_ be Get(_target_, "length").
+    - ReturnIfAbrupt(_targetLen_).
+    - If Type(_targetLen_) is not **Number**, then let _L_ be 0.
+    - Else, let _L_ be ToInteger(_targetLen_).
+- Else let _L_ be 0.
+- Let _status_ be DefinePropertyOrThrow(_F_, "length", PropertyDescriptor {[[Value]]: _L_,
+  [[Writable]]: **false**, [[Enumerable]]: **false**, [[Configurable]]: **true**}).
+- ReturnIfAbrupt(_status_).
+- Let _targetName_ be Get(_target_, "name").
+- ReturnIfAbrupt(_targetName_).
+- If Type(_targetName_) is not **String**, then let _targetName_ be the empty string.
+- Let _status_ be SetFunctionName(_F_, _targetName_, "bound").
+- ReturnIfAbrupt(_status_).
+- Return _F_.
 
 
 ----
@@ -146,26 +146,26 @@ adapter patterns in use today.
     BindExpression :
         :: NewExpression
 
-- Let `targetReference` be the result of evaluating `NewExpression`.
-- If Type(`targetReference`) is Reference, then let `baseValue` be GetBase(`targetReference`).
-- Else let `baseValue` be undefined.
-- Let `target` be GetValue(`targetReference`).
-- If IsCallable(`target`) is false, throw a TypeError exception.
-- Let `F` be BoundFunctionCreate(`target`, `baseValue`, ()).
-- Let `targetHasLength` be HasOwnProperty(`target`, "length").
-- ReturnIfAbrupt(`targetHasLength`).
-- If `targetHasLength` is true, then
-    - Let `targetLen` be Get(`target`, "length").
-    - ReturnIfAbrupt(`targetLen`).
-    - If Type(`targetLen`) is not Number, then let `L` be 0.
-    - Else, let `L` be ToInteger(`targetLen`).
-- Else let `L` be 0.
-- Let `status` be DefinePropertyOrThrow(`F`, "length", PropertyDescriptor {[[Value]]: `L`,
-  [[Writable]]: false, [[Enumerable]]: false, [[Configurable]]: true}).
-- ReturnIfAbrupt(`status`).
-- Let `targetName` be Get(`target`, "name").
-- ReturnIfAbrupt(`targetName`).
-- If Type(`targetName`) is not String, then let `targetName` be the empty string.
-- Let `status` be SetFunctionName(`F`, `targetName`, "bound").
-- ReturnIfAbrupt(`status`).
-- Return `F`.
+- Let _targetReference_ be the result of evaluating _NewExpression_.
+- If Type(_targetReference_) is **Reference**, then let _baseValue_ be GetBase(_targetReference_).
+- Else let _baseValue_ be **undefined**.
+- Let _target_ be GetValue(_targetReference_).
+- If IsCallable(_target_) is **false**, throw a **TypeError** exception.
+- Let _F_ be BoundFunctionCreate(_target_, _baseValue_, ()).
+- Let _targetHasLength_ be HasOwnProperty(_target_, "length").
+- ReturnIfAbrupt(_targetHasLength_).
+- If _targetHasLength_ is **true**, then
+    - Let _targetLen_ be Get(_target_, "length").
+    - ReturnIfAbrupt(_targetLen_).
+    - If Type(_targetLen_) is not **Number**, then let _L_ be 0.
+    - Else, let _L_ be ToInteger(_targetLen_).
+- Else let _L_ be 0.
+- Let _status_ be DefinePropertyOrThrow(_F_, "length", PropertyDescriptor {[[Value]]: _L_,
+  [[Writable]]: **false**, [[Enumerable]]: **false**, [[Configurable]]: **true**}).
+- ReturnIfAbrupt(_status_).
+- Let _targetName_ be Get(_target_, "name").
+- ReturnIfAbrupt(_targetName_).
+- If Type(_targetName_) is not **String**, then let _targetName_ be the empty string.
+- Let _status_ be SetFunctionName(_F_, _targetName_, "bound").
+- ReturnIfAbrupt(_status_).
+- Return _F_.
