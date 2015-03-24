@@ -73,11 +73,15 @@ In its unary prefix form, the `::` operator creates a bound function such that
 the base of the supplied reference is bound as the `this` variable to the target
 function.
 
-If the bound function is immediately called, then the bound function itself is not
-observable and can be optimized to a simple and efficient function call.
+If the bound function is immediately called, and the target function is strict
+mode, then the bound function itself is not observable and the bind operator
+can be optimized to an efficient direct function call.
+
+_NOTE: If the target function is not strict, then it may use `function.callee` or
+`arguments.callee`, which would result in an observable difference of behavior._
 
 By providing syntactic sugar for these use cases we will enable a new class of
-"virtual method" libraries, which will have usability advantages over the standard
+"virtual method" library, which will have usability advantages over the standard
 adapter patterns in use today.
 
 
