@@ -88,7 +88,7 @@ adapter patterns in use today.
 ### Prototypes ###
 
 - Parser: [esparse](https://github.com/zenparsing/esparse)
-- Transpiler: [esdown](https://github.com/zenparsing/esparse)
+- Transpiler: [esdown](https://github.com/zenparsing/esdown)
 - Demo: [esdown REPL](http://esparse.org/esdown/repl/)
 
 
