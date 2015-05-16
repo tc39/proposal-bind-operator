@@ -102,7 +102,7 @@ adapter patterns in use today.
 
     BindExpression[Yield] :
         LeftHandSideExpression[?Yield] :: NewExpression[?Yield]
-        :: NewExpression[?Yield]
+        :: MemberExpression[?Yield]
 
     CallExpression[Yield] :
         MemberExpression[?Yield] Arguments[?Yield]
@@ -148,9 +148,9 @@ adapter patterns in use today.
 ----
 
     BindExpression :
-        :: NewExpression
+        :: MemberExpression
 
-- Let _targetReference_ be the result of evaluating _NewExpression_.
+- Let _targetReference_ be the result of evaluating _MemberExpression_.
 - If Type(_targetReference_) is **Reference**, then let _baseValue_ be GetBase(_targetReference_).
 - Else let _baseValue_ be **undefined**.
 - Let _target_ be GetValue(_targetReference_).
