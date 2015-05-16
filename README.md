@@ -113,6 +113,26 @@ adapter patterns in use today.
         CallExpression[?Yield] TemplateLiteral[?Yield]
         BindExpression[?Yield] Arguments[?Yield]
 
+### Early Errors ###
+
+    BindExpression :
+        :: NewExpression
+
+- It is a Syntax Error if the derived *NewExpression* is neither
+  *MemberExpression : MemberExpression . Identifier* nor
+  *MemberExpression : MemberExpression [ Expression ]*
+
+- It is a Syntax Error if the derived *NewExpression* is
+  *PrimaryExpression : CoverParenthesizedExpressionAndArrowParameterList* and
+  *CoverParenthesizedExpressionAndArrowParameterList* ultimately derives a phrase that,
+  if used in place of *NewExpression*, would produce a Syntax Error according to these rules.
+  This rule is recursively applied.
+
+NOTE:  The last rule means that expressions such as
+
+    ::(((foo)))
+
+produce early errors because of recursive application of the first rule.
 
 ### Runtime Semantics ###
 
