@@ -171,8 +171,9 @@ produce early errors because of recursive application of the first rule.
         :: NewExpression
 
 - Let _targetReference_ be the result of evaluating _NewExpression_.
-- If Type(_targetReference_) is **Reference**, then let _baseValue_ be GetBase(_targetReference_).
-- Else let _baseValue_ be **undefined**.
+- Assert: Type(_targetReference_) is **Reference**
+- Assert: IsSuperReference(_targetReference_) is **false**.
+- Let _baseValue_ be GetBase(_targetReference_).
 - Let _target_ be GetValue(_targetReference_).
 - If IsCallable(_target_) is **false**, throw a **TypeError** exception.
 - Let _F_ be BoundFunctionCreate(_target_, _baseValue_, ()).
