@@ -7,6 +7,13 @@ It is a more detailed description of the [bind operator strawman](http://wiki.ec
 
 ### Examples ###
 
+Creating a bound function:
+
+```js
+let boundFunction = obj::fn;
+boundFunction();
+```
+
 Using an iterator library implemented as a module of "virtual methods":
 
 ```js
@@ -51,8 +58,8 @@ where explicit `this` binding or injection is both common and awkward.
 **Calling a known function with a supplied `this` argument:**
 
 ```js
-var hasOwnProp = Object.prototype.hasOwnProperty;
-var obj = { x: 100 };
+let hasOwnProp = Object.prototype.hasOwnProperty;
+let obj = { x: 100 };
 hasOwnProp.call(obj, "x");
 ```
 
@@ -100,8 +107,8 @@ adapter patterns in use today.
         BindExpression[?Yield]
 
     BindExpression[Yield] :
-        LeftHandSideExpression[?Yield] :: NewExpression[?Yield]
-        :: NewExpression[?Yield]
+        LeftHandSideExpression[?Yield] :: [lookahead ≠ new] MemberExpression[?Yield]
+        :: MemberExpression[?Yield]
 
     CallExpression[Yield] :
         MemberExpression[?Yield] Arguments[?Yield]
@@ -115,9 +122,9 @@ adapter patterns in use today.
 ### Early Errors ###
 
     BindExpression :
-        :: NewExpression
+        :: MemberExpression
 
-- It is a Syntax Error if the derived *NewExpression* is neither
+- It is a Syntax Error if the derived *MemberExpression* is neither
   *MemberExpression : MemberExpression . Identifier* nor
   *MemberExpression : MemberExpression [ Expression ]*
 
@@ -136,60 +143,47 @@ produce early errors because of recursive application of the first rule.
 ### Runtime Semantics ###
 
     BindExpression :
-        LeftHandSideExpression :: NewExpression
+        LeftHandSideExpression :: [lookahead ≠ new] MemberExpression
 
 - Let _baseReference_ be the result of evaluating _LeftHandSideExpression_.
-- Let _baseValue_ be GetValue(_baseReference_).
-- ReturnIfAbrupt(_baseValue_).
-- Let _targetReference_ be the result of evaluating _NewExpression_.
+- Let _baseValue_ be ? GetValue(_baseReference_).
+- Let _targetReference_ be the result of evaluating _MemberExpression_.
 - Let _target_ be GetValue(_targetReference_).
-- If IsCallable(_target_) is **false**, throw a **TypeError** exception.
+- If IsCallable(_target_) is `false`, throw a `TypeError` exception.
 - Let _F_ be BoundFunctionCreate(_target_, _baseValue_, ()).
-- Let _targetHasLength_ be HasOwnProperty(_target_, "length").
-- ReturnIfAbrupt(_targetHasLength_).
-- If _targetHasLength_ is **true**, then
-    - Let _targetLen_ be Get(_target_, "length").
-    - ReturnIfAbrupt(_targetLen_).
-    - If Type(_targetLen_) is not **Number**, then let _L_ be 0.
+- Let _targetHasLength_ be ? HasOwnProperty(_target_, `"length"`).
+- If _targetHasLength_ is `true`,
+    - Let _targetLen_ be ? Get(_target_, `"length"`).
+    - If Type(_targetLen_) is not `Number`, then let _L_ be `0`.
     - Else, let _L_ be ToInteger(_targetLen_).
-- Else let _L_ be 0.
-- Let _status_ be DefinePropertyOrThrow(_F_, "length", PropertyDescriptor {[[Value]]: _L_,
-  [[Writable]]: **false**, [[Enumerable]]: **false**, [[Configurable]]: **true**}).
-- ReturnIfAbrupt(_status_).
-- Let _targetName_ be Get(_target_, "name").
-- ReturnIfAbrupt(_targetName_).
-- If Type(_targetName_) is not **String**, then let _targetName_ be the empty string.
-- Let _status_ be SetFunctionName(_F_, _targetName_, "bound").
-- ReturnIfAbrupt(_status_).
+- Else let _L_ be `0`.
+- Let _status_ be ? DefinePropertyOrThrow(_F_, `"length"`, PropertyDescriptor {[[Value]]: _L_, [[Writable]]: `false`, [[Enumerable]]: `false`, [[Configurable]]: `true`}).
+- Let _targetName_ be ? Get(_target_, `"name"`).
+- If Type(_targetName_) is not `String`, then let _targetName_ be the empty string.
+- Let _status_ be ? SetFunctionName(_F_, _targetName_, `"bound"`).
 - Return _F_.
 
 
 ----
 
     BindExpression :
-        :: NewExpression
+        :: MemberExpression
 
-- Let _targetReference_ be the result of evaluating _NewExpression_.
-- Assert: Type(_targetReference_) is **Reference**
-- Assert: IsSuperReference(_targetReference_) is **false**.
+- Let _targetReference_ be the result of evaluating _MemberExpression_.
+- Assert: Type(_targetReference_) is `Reference`.
+- Assert: IsSuperReference(_targetReference_) is `false`.
 - Let _baseValue_ be GetBase(_targetReference_).
 - Let _target_ be GetValue(_targetReference_).
-- If IsCallable(_target_) is **false**, throw a **TypeError** exception.
-- Let _F_ be BoundFunctionCreate(_target_, _baseValue_, ()).
-- Let _targetHasLength_ be HasOwnProperty(_target_, "length").
-- ReturnIfAbrupt(_targetHasLength_).
+- If IsCallable(_target_) is `false`, throw a `TypeError` exception.
+- Let _F_ be ? BoundFunctionCreate(_target_, _baseValue_, «»).
+- Let _targetHasLength_ be ? HasOwnProperty(_target_, `"length"`).
 - If _targetHasLength_ is **true**, then
-    - Let _targetLen_ be Get(_target_, "length").
-    - ReturnIfAbrupt(_targetLen_).
-    - If Type(_targetLen_) is not **Number**, then let _L_ be 0.
+    - Let _targetLen_ be ? Get(_target_, `"length"`).
+    - If Type(_targetLen_) is not `Number`, then let _L_ be `0`.
     - Else, let _L_ be ToInteger(_targetLen_).
-- Else let _L_ be 0.
-- Let _status_ be DefinePropertyOrThrow(_F_, "length", PropertyDescriptor {[[Value]]: _L_,
-  [[Writable]]: **false**, [[Enumerable]]: **false**, [[Configurable]]: **true**}).
-- ReturnIfAbrupt(_status_).
-- Let _targetName_ be Get(_target_, "name").
-- ReturnIfAbrupt(_targetName_).
-- If Type(_targetName_) is not **String**, then let _targetName_ be the empty string.
-- Let _status_ be SetFunctionName(_F_, _targetName_, "bound").
-- ReturnIfAbrupt(_status_).
+- Else let _L_ be `0`.
+- Let _status_ be ? DefinePropertyOrThrow(_F_, `"length"`, PropertyDescriptor {[[Value]]: _L_, [[Writable]]: `false`, [[Enumerable]]: `false`, [[Configurable]]: `true`}).
+- Let _targetName_ be ? Get(_target_, `"name"`).
+- If Type(_targetName_) is not `String`, then let _targetName_ be the empty string.
+- Let _status_ be ? SetFunctionName(_F_, _targetName_, `"bound"`).
 - Return _F_.
