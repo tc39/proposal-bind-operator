@@ -7,13 +7,6 @@ It is a more detailed description of the [bind operator strawman](http://wiki.ec
 
 ### Examples ###
 
-Creating a bound function:
-
-```js
-let boundFunction = obj::fn;
-boundFunction();
-```
-
 Using an iterator library implemented as a module of "virtual methods":
 
 ```js
