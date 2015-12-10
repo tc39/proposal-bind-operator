@@ -117,9 +117,9 @@ adapter patterns in use today.
     BindExpression :
         :: MemberExpression
 
-- It is a Syntax Error if the derived *MemberExpression* is neither
-  *MemberExpression : MemberExpression . Identifier* nor
-  *MemberExpression : MemberExpression [ Expression ]*
+- It is a Syntax Error if the derived *MemberExpression* is not
+  *MemberExpression : MemberExpression . Identifier*,
+  *MemberExpression : MemberExpression [ Expression ]*, or *SuperProperty*
 
 - It is a Syntax Error if the derived *NewExpression* is
   *PrimaryExpression : CoverParenthesizedExpressionAndArrowParameterList* and
@@ -163,12 +163,11 @@ produce early errors because of recursive application of the first rule.
         :: MemberExpression
 
 - Let _targetReference_ be the result of evaluating _MemberExpression_.
-- Assert: Type(_targetReference_) is `Reference`.
-- Assert: IsSuperReference(_targetReference_) is `false`.
-- Let _baseValue_ be GetBase(_targetReference_).
+- Assert: Type(_targetReference_) is Reference.
+- Let _thisValue_ be GetThisValue(_targetReference_).
 - Let _target_ be GetValue(_targetReference_).
 - If IsCallable(_target_) is `false`, throw a `TypeError` exception.
-- Let _F_ be ? BoundFunctionCreate(_target_, _baseValue_, «»).
+- Let _F_ be ? BoundFunctionCreate(_target_, _thisValue_, «»).
 - Let _targetHasLength_ be ? HasOwnProperty(_target_, `"length"`).
 - If _targetHasLength_ is **true**, then
     - Let _targetLen_ be ? Get(_target_, `"length"`).
