@@ -1,6 +1,6 @@
-## ECMAScript Function Bind Syntax ##
+## ECMAScript This-Binding Syntax ##
 
-This proposal introduces a new operator `::` which performs function binding and method extraction.
+This proposal introduces a new operator `::` which performs `this` binding and method extraction.
 
 It is a more detailed description of the [bind operator strawman](http://wiki.ecmascript.org/doku.php?id=strawman:bind_operator).
 
