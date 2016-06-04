@@ -17,7 +17,7 @@ getPlayers()
 ::forEach(x => console.log(x));
 ```
 
-Using a jquery-like library of virtual methods:
+Using a jQuery-like library of virtual methods:
 
 ```js
 // Create bindings for just the methods that we need
