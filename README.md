@@ -40,6 +40,33 @@ Using method extraction to call an object method when a DOM event occurs:
 $(".some-link").on("click", ::view.reset);
 ```
 
+#### How it works
+
+The `::` operator has the highest precedence. And so, the following:
+
+```
+foo::bar(baz);
+```
+
+Is equivalent to:
+
+```
+(foo::bar)(baz);
+```
+
+Or, also equivalent to
+
+```
+const _foobar = foo::bar;
+_foobar(baz);
+```
+
+So, as a warning, if you want to bind a curried function, be sure to wrap the currying expression in parens
+
+```
+foo::(curried(val))(baz);
+```
+
 ### Motivation and Overview ###
 
 With the introduction of arrow functions in ECMAScript 6, the need for explicitly binding closures to the lexical `this` value has been dramatically reduced, resulting in a significant increase in language usability.  However, there are still two use cases where explicit `this` binding or injection is both common and awkward.
