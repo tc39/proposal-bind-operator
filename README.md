@@ -152,7 +152,7 @@ The abstract operation InitializeBoundFunctionProperties with arguments _F_ and 
 - Let _F_ be ? BoundFunctionCreate(_target_, _thisValue_, «»).
 - Return ? InitializeBoundFunctionProperties(_F_, _target_).
 
-### Future Extensions:  Bound Construtors ###
+### Future Extensions:  Bound Constructors ###
 
 This syntax can be extended by introducing *bound constructors*.  When the binary `::` operator is followed by the `new` keyword, the constructor on the left hand side is wrapped by a callable function.
 
